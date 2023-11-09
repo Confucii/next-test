@@ -15,9 +15,12 @@ export default function EditInvoiceForm({
   invoice,
   customers,
 }: {
-  invoice: unknown;
+  invoice: InvoiceForm | undefined;
   customers: CustomerField[];
 }) {
+  if (typeof invoice === "undefined") {
+    return <></>;
+  }
   const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
 
   return (
