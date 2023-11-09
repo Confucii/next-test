@@ -29,13 +29,13 @@ export async function createInvoice(formData: FormData) {
     VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
   `;
 
+  revalidatePath("/dashboard/invoices");
   redirect("/dashboard/invoices");
 }
 
 export async function deleteInvoice(id: string) {
   await sql`DELETE FROM invoices WHERE id = ${id}`;
-
-  redirect("/dashboard/invoices");
+  revalidatePath("/dashboard/invoices");
 }
 
 const UpdateInvoice = InvoiceSchema.omit({ date: true, id: true });
@@ -57,5 +57,6 @@ export async function updateInvoice(id: string, formData: FormData) {
     WHERE id = ${id}
   `;
 
+  revalidatePath("/dashboard/invoices");
   redirect("/dashboard/invoices");
 }
